@@ -25,7 +25,7 @@ def all_ids_puntos (box_list: List[str]):
     result_list = []
     for id in box_list:
         resta_list = count_rep(id)
-        print(resta_list)
+        #print(resta_list)
         largo = len(resta_list)
         if largo == 1:
             result_list.append((1,0))
@@ -50,8 +50,52 @@ def all_ids_puntos (box_list: List[str]):
 def sum_all (puntos_list: List[str]):
     return [sum(x) for x in zip(*puntos_list)]
 
+
 puntos_list = all_ids_puntos (box_id_list)
-print(puntos_list)
+#print(puntos_list)
 sum_list = sum_all(puntos_list)
-print(sum_list)
+#print(sum_list)
 print('Result: ', sum_list[0]*sum_list[1])
+
+### Joel Grus Solution
+
+from typing import Set
+from collections import Counter
+
+ids = box_id_list
+def char_count_values (word:str) -> Set[int]:
+    char_counts = Counter(word)
+    #print(char_counts)
+    return set(char_counts.values())
+
+print(char_count_values(box_id_list[0]))
+print(char_count_values(box_id_list[1]))
+print(char_count_values(box_id_list[2]))
+
+def checksum(ids:List[str]) -> int:
+    """
+    """
+    num_twos = 0
+    num_threes = 0
+    for box_id in ids: 
+        ccv = char_count_values(box_id)
+        if 2 in ccv:
+            num_twos += 1
+        if 3 in ccv:
+            num_threes += 1
+    
+    return num_twos * num_threes
+
+assert checksum(['abcdef','bababc','abbcde',
+                 'abcccd', 'aabcdd', 'abcdee',
+                 'ababab']) == 12
+
+
+print('Grus Result: ', checksum(ids))
+
+## My code only works in this specifi puzzle.
+## Grus' one works with any similar one.
+
+%timeit checksum(ids)
+#sum_list = sum_all(all_ids_puntos (box_id_list))
+#print('Result: ', sum_list[0]*sum_list[1])
