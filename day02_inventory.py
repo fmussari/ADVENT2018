@@ -96,6 +96,3 @@ print('Grus Result: ', checksum(ids))
 ## My code only works in this specifi puzzle.
 ## Grus' one works with any similar one.
 
-%timeit checksum(ids)
-#sum_list = sum_all(all_ids_puntos (box_id_list))
-#print('Result: ', sum_list[0]*sum_list[1])
